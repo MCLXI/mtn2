@@ -1012,15 +1012,35 @@ void CMasternodeMan::CheckSameAddr()
 		std::vector<COutput> couldbe4k;
 		pwalletMain->AvailableCoins(couldbe4k, true, NULL, false, ONLY_4000);
 		//check all outputs for the txid hash
-		BOOST_FOREACH(COutput& out, couldbe4k) {
-			std::string checkcol = out.tx->GetHash().ToString();
-			std::string checkvin = pmn.second.vin.prevout.ToString();
-			if (checkvin == checkcol) { //we have a match of a 4k node
+		BOOST_FOREACH(COutput& out4k, couldbe4k) {
+			std::string checkcol4k = out4k.tx->GetHash().ToString();
+			std::string checkvin4k = pmn.second.vin.prevout.ToString();
+			if (checkvin4k == checkcol4k) { //we have a match of a 4k node
 				pmn->UpdateTier(2);
 			}
 		}
 		//do 1000 case
-
+		std::vector<COutput> couldbe1k;
+		pwalletMain->AvailableCoins(couldbe1k, true, NULL, false, ONLY_1000);
+		//check all outputs for the txid hash
+		BOOST_FOREACH(COutput& out1k, couldbe1k) {
+			std::string checkcol1k = out1k.tx->GetHash().ToString();
+			std::string checkvin1k = pmn.second.vin.prevout.ToString();
+			if (checkvin1k == checkcol1k) { //we have a match of a 4k node
+				pmn->UpdateTier(1);
+			}
+		}
+		std::vector<COutput> couldbe10k;
+		pwalletMain->AvailableCoins(couldbe10k, true, NULL, false, ONLY_10000);
+		//check all outputs for the txid hash
+		BOOST_FOREACH(COutput& out10k, couldbe10k) {
+			std::string checkcol10k = out10k.tx->GetHash().ToString();
+			std::string checkvin10k = pmn.second.vin.prevout.ToString();
+			if (checkvin10k == checkcol10k) { //we have a match of a 4k node
+				pmn->UpdateTier(3);
+			}
+		}
+	}
             if(!pprevMasternode) {
                 pprevMasternode = pmn;
                 pverifiedMasternode = pmn->IsPoSeVerified() ? pmn : NULL;

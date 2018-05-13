@@ -282,6 +282,8 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int nBlockH
     }
 
     // GET MASTERNODE PAYMENT VARIABLES SETUP
+    CAmount masternodePayment;
+    //adding code here to link PAYEE to MN ADDRESS
     CAmount masternodePayment = GetMasternodePayment(nBlockHeight, blockReward, 1);
 
     // split reward between miner ...
