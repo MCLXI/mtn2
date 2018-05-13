@@ -15,6 +15,7 @@
 #endif // ENABLE_WALLET
 #include "script/standard.h"
 #include "util.h"
+#include "init.h"
 
 /** Masternode manager */
 CMasternodeMan mnodeman;
