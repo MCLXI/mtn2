@@ -1006,6 +1006,21 @@ void CMasternodeMan::CheckSameAddr()
             // check only (pre)enabled masternodes
             if(!pmn->IsEnabled() && !pmn->IsPreEnabled()) continue;
             // initial step
+	    //DO TIERS HERE!
+	    if (pmn != NULL) {
+		//do 4000 case
+		std::vector<COutput> couldbe4k;
+		pwalletMain->AvailableCoins(couldbe4k, true, NULL, false, ONLY_4000);
+		//check all outputs for the txid hash
+		BOOST_FOREACH(COutput& out, couldbe4k) {
+			std::string checkcol = out.tx->GetHash().ToString();
+			std::string checkvin = pmn.second.vin.prevout.ToString();
+			if (checkvin == checkcol) { //we have a match of a 4k node
+				pmn->UpdateTier(2);
+			}
+		}
+		//do 1000 case
+
             if(!pprevMasternode) {
                 pprevMasternode = pmn;
                 pverifiedMasternode = pmn->IsPoSeVerified() ? pmn : NULL;

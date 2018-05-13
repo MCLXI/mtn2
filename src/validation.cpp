@@ -1275,6 +1275,7 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
 
 CAmount GetMasternodePayment(int nHeight, CAmount blockValue, int tier)
 {
+if (nHeight > 40000) {
     // Until tiers implementation, MN gets 60% from block reward
     if (tier == 1) { //1k collateral MN = 1 coin // miner 19
 	return blockValue * 0.05;
@@ -1287,6 +1288,9 @@ CAmount GetMasternodePayment(int nHeight, CAmount blockValue, int tier)
 	}
     else {
 	return blockValue * 0.1; // unused
+	}
+} else {
+	return blockValue * .6;
 	}
 }
 
