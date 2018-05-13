@@ -1273,10 +1273,21 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
     return fSuperblockPartOnly ? nSuperblockPart : nSubsidy - nSuperblockPart;
 }
 
-CAmount GetMasternodePayment(int nHeight, CAmount blockValue)
+CAmount GetMasternodePayment(int nHeight, CAmount blockValue, int tier)
 {
     // Until tiers implementation, MN gets 60% from block reward
-    return blockValue * 0.6;
+    if (tier == 1) { //1k collateral MN = 1 coin // miner 19
+	return blockValue * 0.05;
+	}
+    else if (tier == 2) { //4k collateral MN = 7 coins // miner 13
+	return blockValue * 0.35;
+	}
+    else if (tier == 3) { //10k collateral MN = 19 coins // miner 1
+	return blockValue * 0.95;
+	}
+    else {
+	return blockValue * 0.1; // unused
+	}
 }
 
 bool IsInitialBlockDownload()

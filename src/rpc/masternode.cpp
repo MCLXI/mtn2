@@ -372,6 +372,9 @@ UniValue masternode(const UniValue& params, bool fHelp)
         // Find possible candidates
         std::vector<COutput> vPossibleCoins;
         pwalletMain->AvailableCoins(vPossibleCoins, true, NULL, false, ONLY_1000);
+	pwalletMain->AvailableCoins(vPossibleCoins, true, NULL, false, ONLY_4000);
+	pwalletMain->AvailableCoins(vPossibleCoins, true, NULL, false, ONLY_10000);
+
 
         UniValue obj(UniValue::VOBJ);
         BOOST_FOREACH(COutput& out, vPossibleCoins) {

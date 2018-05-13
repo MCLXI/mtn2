@@ -2388,6 +2388,10 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
                     found = !CPrivateSend::IsDenominatedAmount(pcoin->vout[i].nValue);
                 } else if(nCoinType == ONLY_1000) {
                     found = pcoin->vout[i].nValue == 1000*COIN;
+		} else if(nCoinType == ONLY_4000) {
+		    found = pcoin->vout[i].nValue == 4000*COIN;
+		} else if(nCoinType == ONLY_10000) {
+		    found = pcoin->vout[i].nValue == 10000*COIN;
                 } else if(nCoinType == ONLY_PRIVATESEND_COLLATERAL) {
                     found = CPrivateSend::IsCollateralAmount(pcoin->vout[i].nValue);
                 } else {
@@ -2397,7 +2401,7 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
 
                 isminetype mine = IsMine(pcoin->vout[i]);
                 if (!(IsSpent(wtxid, i)) && mine != ISMINE_NO &&
-                    (!IsLockedCoin((*it).first, i) || nCoinType == ONLY_1000) &&
+                    (!IsLockedCoin((*it).first, i) || nCoinType == ONLY_1000 || nCoinType == ONLY_4000 || nCoinType == ONLY_10000) &&
                     (pcoin->vout[i].nValue > 0 || fIncludeZeroValue) &&
                     (!coinControl || !coinControl->HasSelected() || coinControl->fAllowOtherInputs || coinControl->IsSelected(COutPoint((*it).first, i))))
                         vCoins.push_back(COutput(pcoin, i, nDepth,
