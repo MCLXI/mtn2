@@ -284,8 +284,25 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int nBlockH
     // GET MASTERNODE PAYMENT VARIABLES SETUP
     CAmount masternodePayment;
     //adding code here to link PAYEE to MN ADDRESS
-    CAmount masternodePayment = GetMasternodePayment(nBlockHeight, blockReward, 1);
-
+	// cycle thru mn map..
+        std::map<COutPoint, CMasternode> mapMasternodesZ = mnodeman.GetFullMasternodeMap();
+        for (auto& mnpairZ : mapMasternodesZ) {
+            CMasternode mn = mnpairZ.second;
+    	if (CMotionAddress(mnInfo.pubKeyCollateralAddress.GetID()).ToString() == CMotionAddress(mn.pubKeyCollateralAddress.GetID()).ToString()){
+		if(mn.tier == 1) {
+			masternodePayment = GetMasternodePayment(nBlockHeight, blockReward, 1);
+			break;
+		}
+		else if (mn.tier == 2) {
+			masternodePayment = GetMasternodePayment(nBlockHeight, blockReward, 2);
+			break;
+		}
+		else if (mn.tier == 3) {
+			masternodePayment = GetMasternodePayment(nBlockHeight, blockReward, 3);
+			break;
+		}
+	}
+}
     // split reward between miner ...
     txNew.vout[0].nValue -= masternodePayment;
     // ... and masternode
