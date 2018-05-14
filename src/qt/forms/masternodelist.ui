@@ -105,6 +105,11 @@
 													</column>
 													<column>
 														<property name="text">
+															<string>Tier</string>
+														</property>
+													</column>
+													<column>
+														<property name="text">
 															<string>Last Seen</string>
 														</property>
 													</column>
