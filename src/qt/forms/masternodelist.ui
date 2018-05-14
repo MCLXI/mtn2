@@ -95,17 +95,17 @@
 													</column>
 													<column>
 														<property name="text">
+															<string>Tier</string>
+														</property>
+													</column>
+													<column>
+														<property name="text">
 															<string>Status</string>
 														</property>
 													</column>
 													<column>
 														<property name="text">
 															<string>Active</string>
-														</property>
-													</column>
-													<column>
-														<property name="text">
-															<string>Tier</string>
 														</property>
 													</column>
 													<column>
@@ -223,17 +223,17 @@
 											</column>
 											<column>
 												<property name="text">
+													<string>Tier</string>
+												</property>
+											</column>
+											<column>
+												<property name="text">
 													<string>Status</string>
 												</property>
 											</column>
 											<column>
 												<property name="text">
 													<string>Active</string>
-												</property>
-											</column>
-											<column>
-												<property name="text">
-													<string>Tier</string>
 												</property>
 											</column>
 											<column>
