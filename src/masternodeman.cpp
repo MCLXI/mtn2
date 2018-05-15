@@ -1015,7 +1015,7 @@ void CMasternodeMan::CheckSameAddr()
 		//check all outputs for the txid hash
 		BOOST_FOREACH(COutput& out4k, couldbe4k) {
 			std::string checkcol4k = out4k.tx->GetHash().ToString();
-			std::string checkvin4k = pmn.second.vin.prevout.ToString();
+			std::string checkvin4k = pmn->vin.prevout.ToString();
 			if (checkvin4k == checkcol4k) { //we have a match of a 4k node
 				pmn->UpdateTier(2);
 			}
@@ -1026,7 +1026,7 @@ void CMasternodeMan::CheckSameAddr()
 		//check all outputs for the txid hash
 		BOOST_FOREACH(COutput& out1k, couldbe1k) {
 			std::string checkcol1k = out1k.tx->GetHash().ToString();
-			std::string checkvin1k = pmn.second.vin.prevout.ToString();
+			std::string checkvin1k = pmn->vin.prevout.ToString();
 			if (checkvin1k == checkcol1k) { //we have a match of a 4k node
 				pmn->UpdateTier(1);
 			}
@@ -1036,7 +1036,7 @@ void CMasternodeMan::CheckSameAddr()
 		//check all outputs for the txid hash
 		BOOST_FOREACH(COutput& out10k, couldbe10k) {
 			std::string checkcol10k = out10k.tx->GetHash().ToString();
-			std::string checkvin10k = pmn.second.vin.prevout.ToString();
+			std::string checkvin10k = pmn->vin.prevout.ToString();
 			if (checkvin10k == checkcol10k) { //we have a match of a 4k node
 				pmn->UpdateTier(3);
 			}

@@ -267,6 +267,7 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int nBlockH
     txoutMasternodeRet = CTxOut();
 
     CScript payee;
+    masternode_info_t copymn;
 
     if(!mnpayments.GetBlockPayee(nBlockHeight, payee)) {
         // no masternode detected...
@@ -278,6 +279,7 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int nBlockH
             return;
         }
         // fill payee with locally calculated winner and hope for the best
+	copymn = mnInfo;
         payee = GetScriptForDestination(mnInfo.pubKeyCollateralAddress.GetID());
     }
 
@@ -288,7 +290,7 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int nBlockH
         std::map<COutPoint, CMasternode> mapMasternodesZ = mnodeman.GetFullMasternodeMap();
         for (auto& mnpairZ : mapMasternodesZ) {
             CMasternode mn = mnpairZ.second;
-    	if (CMotionAddress(mnInfo.pubKeyCollateralAddress.GetID()).ToString() == CMotionAddress(mn.pubKeyCollateralAddress.GetID()).ToString()){
+    	if (CMotionAddress(copymn.pubKeyCollateralAddress.GetID()).ToString() == CMotionAddress(mn.pubKeyCollateralAddress.GetID()).ToString()){
 		if(mn.tier == 1) {
 			masternodePayment = GetMasternodePayment(nBlockHeight, blockReward, 1);
 			break;

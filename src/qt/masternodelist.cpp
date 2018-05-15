@@ -48,17 +48,15 @@ MasternodeList::MasternodeList(const PlatformStyle *platformStyle, QWidget *pare
     ui->tableWidgetMyMasternodes->setColumnWidth(0, columnAliasWidth);
     ui->tableWidgetMyMasternodes->setColumnWidth(1, columnAddressWidth);
     ui->tableWidgetMyMasternodes->setColumnWidth(2, columnProtocolWidth);
-    ui->tableWidgetMyMasternodes->setColumnWidth(4, columnTierWidth);
-
-    ui->tableWidgetMyMasternodes->setColumnWidth(5, columnStatusWidth);
-    ui->tableWidgetMyMasternodes->setColumnWidth(6, columnActiveWidth);
-    ui->tableWidgetMyMasternodes->setColumnWidth(7, columnLastSeenWidth);
+    ui->tableWidgetMyMasternodes->setColumnWidth(3, columnTierWidth);
+    ui->tableWidgetMyMasternodes->setColumnWidth(4, columnStatusWidth);
+    ui->tableWidgetMyMasternodes->setColumnWidth(5, columnActiveWidth);
+    ui->tableWidgetMyMasternodes->setColumnWidth(6, columnLastSeenWidth);
 
     ui->tableWidgetMasternodes->setColumnWidth(0, columnAddressWidth);
     ui->tableWidgetMasternodes->setColumnWidth(1, columnProtocolWidth);
     ui->tableWidgetMasternodes->setColumnWidth(2, columnStatusWidth);
     ui->tableWidgetMasternodes->setColumnWidth(3, columnTierWidth);
-
     ui->tableWidgetMasternodes->setColumnWidth(4, columnActiveWidth);
     ui->tableWidgetMasternodes->setColumnWidth(5, columnLastSeenWidth);
 
@@ -207,7 +205,7 @@ void MasternodeList::updateMyMasternodeInfo(QString strAlias, QString strAddr, c
     QTableWidgetItem *aliasItem = new QTableWidgetItem(strAlias);
     QTableWidgetItem *addrItem = new QTableWidgetItem(fFound ? QString::fromStdString(infoMn.addr.ToString()) : strAddr);
     QTableWidgetItem *protocolItem = new QTableWidgetItem(QString::number(fFound ? infoMn.nProtocolVersion : -1));
-    QTableWidgetItem *tierItem = new QTableWidgetItem(QString::number(mn.tier));
+    QTableWidgetItem *tierItem = new QTableWidgetItem(QString::number(infoMn.tier));
 
     QTableWidgetItem *statusItem = new QTableWidgetItem(QString::fromStdString(fFound ? CMasternode::StateToString(infoMn.nActiveState) : "MISSING"));
     QTableWidgetItem *activeSecondsItem = new QTableWidgetItem(QString::fromStdString(DurationToDHMS(fFound ? (infoMn.nTimeLastPing - infoMn.sigTime) : 0)));
@@ -219,11 +217,10 @@ void MasternodeList::updateMyMasternodeInfo(QString strAlias, QString strAddr, c
     ui->tableWidgetMyMasternodes->setItem(nNewRow, 1, addrItem);
     ui->tableWidgetMyMasternodes->setItem(nNewRow, 2, protocolItem);
     ui->tableWidgetMyMasternodes->setItem(nNewRow, 3, tierItem);
-
-    ui->tableWidgetMyMasternodes->setItem(nNewRow, 3, statusItem);
-    ui->tableWidgetMyMasternodes->setItem(nNewRow, 4, activeSecondsItem);
-    ui->tableWidgetMyMasternodes->setItem(nNewRow, 5, lastSeenItem);
-    ui->tableWidgetMyMasternodes->setItem(nNewRow, 6, pubkeyItem);
+    ui->tableWidgetMyMasternodes->setItem(nNewRow, 4, statusItem);
+    ui->tableWidgetMyMasternodes->setItem(nNewRow, 5, activeSecondsItem);
+    ui->tableWidgetMyMasternodes->setItem(nNewRow, 6, lastSeenItem);
+    ui->tableWidgetMyMasternodes->setItem(nNewRow, 7, pubkeyItem);
 }
 
 void MasternodeList::updateMyNodeList(bool fForce)
@@ -316,7 +313,6 @@ void MasternodeList::updateNodeList()
         ui->tableWidgetMasternodes->setItem(0, 0, addressItem);
         ui->tableWidgetMasternodes->setItem(0, 1, protocolItem);
 	ui->tableWidgetMasternodes->setItem(0, 2, tierItem);
-
         ui->tableWidgetMasternodes->setItem(0, 3, statusItem);
         ui->tableWidgetMasternodes->setItem(0, 4, activeSecondsItem);
         ui->tableWidgetMasternodes->setItem(0, 5, lastSeenItem);
